@@ -1,7 +1,7 @@
 """Streamlit copy of the privacy policies, for a host other than GitHub Pages.
 
 It shows the same pages GitHub Pages serves (built by scripts/build.mjs from each app's About text). Pick a page with
-?page=my-investments, my-entertainment, our-timeline or delete-account. The Delete-an-account form needs JavaScript in
+?page=my-investments or delete-account. The Delete-an-account form needs JavaScript in
 the page itself, so here it links to the GitHub Pages copy and explains the email route.
 """
 from pathlib import Path
@@ -11,10 +11,8 @@ import streamlit as st
 
 ROOT = Path(__file__).parent
 PAGES = {
-    "index": "All apps",
+    "index": "Home",
     "my-investments": "My Investments",
-    "my-entertainment": "My Entertainment",
-    "our-timeline": "Our Timeline",
     "delete-account": "Delete your account",
 }
 PAGES_URL = "https://mythoughtsaime.github.io/Privacy-Policy/"
