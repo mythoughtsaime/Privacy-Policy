@@ -1,11 +1,11 @@
 // Builds the public pages from the apps' own About text, so the app, this site and the Play Console Data safety
 // form never disagree. Run it whenever an app's src/about.ts changes:
 //
-//   node scripts/build.mjs [path to the folder that holds the three app repos]   (default: ..)
+//   node scripts/build.mjs [path to the folder that holds Mobile-My-Investments-New]   (default: ..)
 //
-// It reads Mobile-My-Investments-New, Mobile-My-Entertainment and Mobile-Our-Timeline next to this repo, turns each
-// app's privacy policy, rules and notices into a page, and writes them to the repo root (index.html and one page per
-// app). delete-account.html is written by hand. TypeScript is borrowed from one of the apps' node_modules.
+// It reads Mobile-My-Investments-New next to this repo, turns the app's privacy policy, rules and notices into a page,
+// and writes index.html and my-investments.html to the repo root. delete-account.html is written by hand.
+// TypeScript is borrowed from the app's node_modules.
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -17,8 +17,6 @@ const APPS_DIR = path.resolve(process.argv[2] ?? path.join(ROOT, '..'));
 
 const APPS = [
   { slug: 'my-investments', repo: 'Mobile-My-Investments-New', name: 'My Investments', sections: ['privacy', 'community', 'store', 'disclaimer'] },
-  { slug: 'my-entertainment', repo: 'Mobile-My-Entertainment', name: 'My Entertainment', sections: ['privacy', 'social', 'store'] },
-  { slug: 'our-timeline', repo: 'Mobile-Our-Timeline', name: 'Our Timeline', sections: ['privacy', 'social', 'store'] },
 ];
 
 const tsRepo = APPS.map(a => path.join(APPS_DIR, a.repo)).find(d => fs.existsSync(path.join(d, 'node_modules/typescript')));
@@ -42,7 +40,7 @@ async function loadAbout(repoDir) {
 }
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-// The apps' inline marks: **bold**, [+good+] and [-harm-] (Our Timeline's colours), and bare links.
+// The apps' inline marks: **bold**, [+good+] and [-harm-], and bare links.
 const inline = s => esc(s)
   .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   .replace(/\[\+(.+?)\+\]/g, '$1').replace(/\[-(.+?)-\]/g, '$1')
@@ -69,7 +67,7 @@ const page = (title, body, description) => `<!doctype html>
 <body>
 <main>
 ${body}
-<footer><p>© 2026 MyThoughtsAIme Apps · <a href="index.html">All apps</a> · <a href="delete-account.html">Delete an account</a></p></footer>
+<footer><p>© 2026 MyThoughtsAIme Apps · <a href="my-investments.html">Privacy policy</a> · <a href="delete-account.html">Delete your account</a></p></footer>
 </main>
 </body>
 </html>
@@ -96,10 +94,10 @@ ${secs.map(s => `<section id="${s.key}"><h2>${esc(s.title)}</h2>\n${s.blocks.map
 }
 
 const email = index[0].email;
-fs.writeFileSync(path.join(ROOT, 'index.html'), page('Privacy policies — MyThoughtsAIme Apps', `<header>
-<p class="kicker">Privacy policies</p>
-<h1>MyThoughtsAIme Apps</h1>
-<p class="lead">Free apps by one independent developer, with no ads, no tracking and no selling of your information.
+fs.writeFileSync(path.join(ROOT, 'index.html'), page('My Investments — Privacy policy', `<header>
+<p class="kicker">Privacy policy</p>
+<h1>My Investments</h1>
+<p class="lead">A free Android app by one independent developer, with no ads, no tracking and no selling of your information.
 Contact: <a href="mailto:${esc(email)}">${esc(email)}</a>.</p>
 </header>
 <section>
@@ -109,7 +107,7 @@ ${index.map(a => `<li><a href="${a.slug}.html"><strong>${esc(a.name)}</strong></
 </section>
 <section>
 <h2>Delete your account</h2>
-<p>The three apps share one optional account. Delete it in any app (<strong>Delete my account</strong>), or
-<a href="delete-account.html">here on the web</a> — it removes the account and everything linked to it from all three apps.</p>
-</section>`, 'Privacy policies for My Investments, My Entertainment and Our Timeline.'));
+<p>The account is optional. Delete it in the app (<strong>Delete my account</strong>), or
+<a href="delete-account.html">here on the web</a> — it removes the account and everything linked to it.</p>
+</section>`, 'Privacy policy for the My Investments app.'));
 console.log('index.html');
