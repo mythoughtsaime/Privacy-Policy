@@ -67,7 +67,7 @@ const page = (title, body, description) => `<!doctype html>
 <body>
 <main>
 ${body}
-<footer><p>© 2026 MyThoughtsAIme Apps · <a href="my-investments.html">Privacy policy</a> · <a href="delete-account.html">Delete your account</a></p></footer>
+<footer><p>© 2026 Antonio Friguglietti. All rights reserved. · <a href="my-investments.html">Privacy policy</a> · <a href="delete-account.html">Delete your account</a></p></footer>
 </main>
 </body>
 </html>
