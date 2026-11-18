@@ -81,7 +81,7 @@ for (const app of APPS) {
   const body = `<header>
 <p class="kicker">Privacy policy</p>
 <h1>${esc(app.name)}</h1>
-<p class="lead">For the ${esc(app.name)} Android app by MyThoughtsAIme Apps. Last updated ${esc(about.POLICY_UPDATED)}.
+<p class="lead">For the ${esc(app.name)} Android app by Antonio Friguglietti. Last updated ${esc(about.POLICY_UPDATED)}.
 Contact: <a href="mailto:${esc(about.CONTACT_EMAIL)}">${esc(about.CONTACT_EMAIL)}</a>.</p>
 <p class="note">This page shows the same text as the app’s About tab. To delete your account, use <strong>Delete my account</strong>
 in the app, or <a href="delete-account.html">delete it on the web</a>.</p>
@@ -97,7 +97,7 @@ const email = index[0].email;
 fs.writeFileSync(path.join(ROOT, 'index.html'), page('My Investments — Privacy policy', `<header>
 <p class="kicker">Privacy policy</p>
 <h1>My Investments</h1>
-<p class="lead">A free Android app by one independent developer, with no ads, no tracking and no selling of your information.
+<p class="lead">A free Android app by Antonio Friguglietti, an independent developer, with no ads, no tracking and no selling of your information.
 Contact: <a href="mailto:${esc(email)}">${esc(email)}</a>.</p>
 </header>
 <section>
